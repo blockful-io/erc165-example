@@ -4,47 +4,73 @@ const erc165 = require("erc165");
 
 describe("Example using ERC165 Interface Id", function () {
 
-  it("Should return true or false for giving interface Id at ERCViewOnly", async function() {
-    // Get the the interface Id from a given abi
-    const abi = await hre.artifacts.readArtifact("contracts/ERC165ViewOnly.sol:/Homer");
-    const interfaceId = erc165.interfaceIdFromABI(abi.abi);
-    console.log("\n%s is the interfaceId", interfaceId);
+  it("Should be True for matching interfaceId with EIP165", async function() {
 
     [ Deployer ] = await ethers.getSigners();
-    console.log("Getting Signer as %s", Deployer.address);
-
     const factory = await ethers.getContractFactory("Homer", Deployer.address);
     const deployedContract = await factory.deploy();
     await deployedContract.deployed();
-    console.log("Factory will be deployed at address %s", deployedContract.address);
+
+    const boolean = await deployedContract.supportsInterface("0x01ffc9a7"); //EIP-165 interfaceId
+    expect(boolean).to.be.true;
+
+  });
+
+  it("Should be True for matching interfaceId for Homer contract", async function() {
+
+    [ Deployer ] = await ethers.getSigners();
+    const factory = await ethers.getContractFactory("Homer", Deployer.address);
+    const deployedContract = await factory.deploy();
+    await deployedContract.deployed();
+
+    const abi = await hre.artifacts.readArtifact("contracts/ERC165ViewOnly.sol:/IHomer");
+    const interfaceId = erc165.interfaceIdFromABI(abi.abi);
 
     const boolean = await deployedContract.supportsInterface(interfaceId);
-    console.log("Supports Interface? %s", boolean);
+    expect(boolean).to.be.true;
+
+  });
+
+  it("Should be True for matching interfaceId for Lisa contract", async function() {
     
-
-  });
-
-  it("Should return true or false for giving interface Id at ERC165Mapping", async function() {
-    // Get the the interface Id from a given abi
-    const abi = await hre.artifacts.readArtifact("contracts/ERC165Mapping.sol:/Lisa");
-    const interfaceId = erc165.interfaceIdFromABI(abi.abi);
-    console.log("\n%s is the interfaceId", interfaceId);
-
     [ Deployer ] = await ethers.getSigners();
-    console.log("Getting Signer as %s", Deployer.address);
-
-    const factory = await ethers.getContractFactory("Homer", Deployer.address);
+    const factory = await ethers.getContractFactory("Lisa", Deployer.address);
     const deployedContract = await factory.deploy();
     await deployedContract.deployed();
-    console.log("Factory will be deployed at address %s", deployedContract.address);
-
+    
+    const abi = await hre.artifacts.readArtifact("contracts/ERC165Mapping.sol:/ILisa");
+    const interfaceId = erc165.interfaceIdFromABI(abi.abi);
+    
     const boolean = await deployedContract.supportsInterface(interfaceId);
-    console.log("Supports Interface? %s", boolean);
+    expect(boolean).to.be.true;
 
-    const gasUsed = await deployedContract.estimateGas;
-    console.log("Gas Used: %s", gasUsed);
+  });
+  
+  it("Should be False when the interface is not implemented", async function() {
+
+    [ Deployer ] = await ethers.getSigners();
+    const factory = await ethers.getContractFactory("Lisa", Deployer.address);
+    const deployedContract = await factory.deploy();
+    await deployedContract.deployed();
+
+    const boolean = await deployedContract.supportsInterface("0xffffffff");
+    expect(boolean).to.be.false;
+
   });
 
+  it("Supported interfaceId from selector should be equal to the fetched from ERC-165 library", async function() {
 
+    [ Deployer ] = await ethers.getSigners();
+    const factory = await ethers.getContractFactory("Lisa", Deployer.address);
+    const deployedContract = await factory.deploy();
+    await deployedContract.deployed();
+
+    const abi = await hre.artifacts.readArtifact("contracts/ERC165Mapping.sol:/ILisa");
+    const interfaceId = erc165.interfaceIdFromABI(abi.abi);
+    const supportedInterfaces = await deployedContract.getSupportedInterfaces();
+
+    expect(interfaceId).to.be.equal(supportedInterfaces);
+
+  });
   
 });
