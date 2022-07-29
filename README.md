@@ -1,9 +1,9 @@
 ![Blockful logo](https://avatars.githubusercontent.com/u/107982496?s=200&v=4)
 
-# erc-165
+# erc165
 > Additional information or tagline
 
-erc-165 facilitates getting the interfaceId from the ABI of a given smart contract.
+erc165 package facilitates getting the interfaceId from the ABI of a given smart contract.
 
 ### Initial Configuration
 
@@ -25,11 +25,11 @@ Install all dependencies:
 npm i
 ```
 
-The enviroment is now set.
+The environment is now set.
 
 ### Deploying / Testing
 
-To run the test environment we've setted up:
+To run the test environment we've set up:
 
 ```shell
 npx hardhat test
@@ -47,7 +47,7 @@ npx hardhat test:jest
 
 ## Contributing
 
-Please help better the ecosystem by submitting issues, pull requests or contacting to pitch an idea.
+Please help better the ecosystem by submitting issues, pull requests, or contacting to pitch an idea.
 
 ## Links
 
