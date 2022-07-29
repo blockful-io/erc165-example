@@ -1,42 +1,60 @@
-# Advanced Sample Hardhat Project
+![Blockful logo](https://avatars.githubusercontent.com/u/107982496?s=200&v=4)
 
-This project demonstrates an advanced Hardhat use case, integrating other tools commonly used alongside Hardhat in the ecosystem.
+# erc-165
+> Additional information or tagline
 
-The project comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts. It also comes with a variety of other tools, preconfigured to work with the project code.
+erc-165 facilitates getting the interfaceId from the ABI of a given smart contract.
 
-Try running some of the following tasks:
+### Initial Configuration
+
+A quick introduction of the minimal setup you need to get the tests up &
+running.
+
+## Developing
+
+Clone the repository:
 
 ```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
+git clone https://github.com/blockful-io/erc165-example.git
+cd erc165-example
+```
+
+Install all dependencies:
+
+```shell
+npm i
+```
+
+The enviroment is now set.
+
+### Deploying / Testing
+
+To run the test environment we've setted up:
+
+```shell
 npx hardhat test
-npx hardhat node
-npx hardhat help
-REPORT_GAS=true npx hardhat test
-npx hardhat coverage
-npx hardhat run scripts/deploy.js
-node scripts/deploy.js
-npx eslint '**/*.js'
-npx eslint '**/*.js' --fix
-npx prettier '**/*.{json,sol,md}' --check
-npx prettier '**/*.{json,sol,md}' --write
-npx solhint 'contracts/**/*.sol'
-npx solhint 'contracts/**/*.sol' --fix
 ```
 
-# Etherscan verification
+And again you'd need to tell what the previous code actually does.
 
-To try out Etherscan verification, you first need to deploy a contract to an Ethereum network that's supported by Etherscan, such as Ropsten.
+### Features
 
-In this project, copy the .env.example file to a file named .env, and then edit it to fill in the details. Enter your Etherscan API key, your Ropsten node URL (eg from Alchemy), and the private key of the account which will send the deployment transaction. With a valid .env file in place, first deploy your contract:
+You can see jest html report:
 
 ```shell
-hardhat run --network ropsten scripts/deploy.js
+npx hardhat test:jest
 ```
 
-Then, copy the deployment address and paste it in to replace `DEPLOYED_CONTRACT_ADDRESS` in this command:
+## Contributing
 
-```shell
-npx hardhat verify --network ropsten DEPLOYED_CONTRACT_ADDRESS "Hello, Hardhat!"
-```
+Please help better the ecosystem by submitting issues, pull requests or contacting to pitch an idea.
+
+## Links
+
+- Project homepage: http://blockful.io
+- Repository: https://github.com/blockful-io
+
+
+## Licensing
+
+This project is licensed under the MIT license.
